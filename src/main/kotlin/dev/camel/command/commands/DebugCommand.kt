@@ -7,7 +7,9 @@ import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource
 
 object DebugCommand : CamelSubCommand {
-    private val subCommands = listOf(
+    override val description = "Provides debug commands for testing."
+
+    override val subCommands = listOf(
         PingCommand,
     )
 

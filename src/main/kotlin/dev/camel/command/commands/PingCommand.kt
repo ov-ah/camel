@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource
 
 object PingCommand : CamelSubCommand {
+    override val description = "Simple ping-pong command."
 
     override fun build() = 
         literal("ping")

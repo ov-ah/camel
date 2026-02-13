@@ -1,18 +1,18 @@
 package dev.camel.command.commands
 
 import com.mojang.brigadier.builder.LiteralArgumentBuilder
-import dev.camel.chat.ChatUtils
+import dev.camel.chat.HelpMenu
 import dev.camel.command.CamelSubCommand
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource
 
-object InfoCommand : CamelSubCommand {
-    override val description = "Shows info about Camel mod."
+object HelpCommand : CamelSubCommand {
+    override val description = "Shows this help menu."
 
     override fun build(): LiteralArgumentBuilder<FabricClientCommandSource> {
-        return literal("info")
+        return literal("help")
             .executes {
-                ChatUtils.sendInfo("Camel mod v0.1.0")
+                HelpMenu.sendHelp()
                 1
             }
     }

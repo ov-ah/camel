@@ -13,11 +13,15 @@ import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource
 object CamelRootCommand : CamelCommand {
 
     override val name = "camel"
+    override val description = "Main camel command; Root for every sub-command."
 
-    private val subCommands = listOf(
+    private val _subCommands = listOf(
         InfoCommand,     
         DebugCommand,   
+        HelpCommand,
     )
+
+    override val subCommands: List<CamelSubCommand> get() = _subCommands
 
     override fun register(dispatcher: CommandDispatcher<FabricClientCommandSource>) {
         val root = literal(name)
