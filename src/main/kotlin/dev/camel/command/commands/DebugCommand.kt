@@ -9,9 +9,11 @@ import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource
 object DebugCommand : CamelSubCommand {
     override val description = "Provides debug commands for testing."
 
-    override val subCommands = listOf(
+    private val _subCommands = listOf(
         PingCommand,
     )
+
+    override val subCommands: List<CamelSubCommand> get() = _subCommands
 
     override fun build(): LiteralArgumentBuilder<FabricClientCommandSource> {
         val root = literal("debug")

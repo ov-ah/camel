@@ -24,13 +24,15 @@ import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource
 object ExampleCommand : CamelCommand {
 
     override val name = "example"
-
+    override val description = "help command description"
+    
     override fun register(dispatcher: CommandDispatcher<FabricClientCommandSource>) {
-        dispatcher.register(
-            literal(name).executes { context ->
-                ChatUtils.send("Hello from example!")
-                1
-            }
+            val root = literal(name)
+                .executes {
+                    ChatUtils.send("Hello from example!")
+                    1
+                }
+            dispatcher.register(root)
         )
     }
 }
@@ -43,6 +45,51 @@ private val commands = listOf(
     PingCommand,
     ExampleCommand,  // add here
 )
+```
+
+## Sub-commands
+1. Create a new file in `src/main/kotlin/dev/camel/command/commands`
+2. Implement the `CamelSubCommand` interface:
+
+```kotlin
+package dev.camel.command.commands
+
+import com.mojang.brigadier.builder.LiteralArgumentBuilder
+import dev.camel.chat.ChatUtils
+import dev.camel.command.CamelSubCommand
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal
+import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource
+
+object ExampleSubCommand : CamelSubCommand {
+
+    override val description = "Help menu description"
+
+    override fun build(): LiteralArgumentBuilder<FabricClientCommandSource> {
+        val root = literal("sub-command name")
+            .executes {
+                ChatUtils.send("Hello from example sub-command!")
+            }
+        return root
+    }
+}
+```
+
+3. To attach your sub-command to a root command, add this line to the beggining of your root command (Note: This can be done on `CamelCommand` or `CamelSubCommand`):
+
+```kotlin
+private val _subCommands = listOf(
+    ExampleSubCommand,
+)
+
+override val subCommands: List<CamelSubCommand> get() = _subCommands
+//Creating a backup list is beneficial to ensure consistency across uses of subCommands.
+```
+
+4. In the `register()`/`build()` function of your root command, build the sub-commands by adding:
+```kotlin
+subCommands.forEach {
+    root.then(it.build())
+}
 ```
 
 ## Chat Output
