@@ -9,7 +9,6 @@ import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource
 object CommandHandler {
 
     private val commands = listOf(
-        PingCommand,
         CamelRootCommand,
     )
 
