@@ -9,7 +9,13 @@
       "Bash(gradle wrapper:*)",
       "WebFetch(domain:maven.fabricmc.net)",
       "Bash(./gradlew build:*)",
-      "Bash(./gradlew wrapper:*)"
+      "Bash(./gradlew wrapper:*)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:javadoc.io)",
+      "WebFetch(domain:modrinth.com)",
+      "Bash(unzip:*)",
+      "Bash(javap:*)",
+      "Bash(jar tf:*)"
     ]
   }
 }
