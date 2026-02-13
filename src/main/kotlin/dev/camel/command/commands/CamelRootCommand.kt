@@ -26,7 +26,7 @@ object CamelRootCommand : CamelCommand {
     override fun register(dispatcher: CommandDispatcher<FabricClientCommandSource>) {
         val root = literal(name)
             .executes {
-                ChatUtils.sendSuccess("Camel!")
+                ChatUtils.sendError("Unrecognized Camel command. Use /camel help")
                 1
             }
 

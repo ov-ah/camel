@@ -8,7 +8,7 @@ import net.minecraft.text.Text
 import net.minecraft.util.Formatting
 
 object HelpMenu {
-    private fun padCommand(cmd: String, width: Int = 15): String {
+    private fun padCommand(cmd: String, width: Int = 20): String {
         return if (cmd.length >= width) cmd else cmd + " ".repeat(width - cmd.length)
     }
 
@@ -20,7 +20,7 @@ object HelpMenu {
         val tree: MutableText = Text.empty()
 
         CamelRootCommand.subCommands.forEachIndexed { index, command ->
-            tree.append(buildTree(command, "", index == CamelRootCommand.subCommands.lastIndex))
+            tree.append(buildTree(command, isLast = index == CamelRootCommand.subCommands.lastIndex))
         }
 
         val full: MutableText = Text.empty()
@@ -32,16 +32,16 @@ object HelpMenu {
 
     private fun buildTree(
         command: CamelSubCommand,
-        indent:  String,
-        isLast:  Boolean
+        isLast:  Boolean,
+        anscestorsLast: List<Boolean> = emptyList()
     ): MutableText {
         val builder: MutableText = Text.empty()
 
-        val prefix = if (indent.isEmpty()) {
-            if (isLast) "\u2514\u2500  " else "\u251C\u2500  "
-        } else {
-            if (isLast) "${indent}\u2514\u2500  " else "${indent}\u251C\u2500  "
+        var prefix = ""
+        anscestorsLast.forEach { last ->
+            prefix += if (last) "   " else "\u2502 "
         }
+        prefix += if (isLast) "\u2514\u2500  " else "\u251C\u2500  "
 
         val commandText = padCommand("${prefix}${command.build().literal}")
         builder.append(Text.literal(commandText).formatted(Formatting.YELLOW))
@@ -53,8 +53,8 @@ object HelpMenu {
         }
 
         command.subCommands.forEachIndexed { index, sub -> 
-            val childIndent = indent + if(isLast) "   " else "\u2502  "
-            builder.append(buildTree(sub, childIndent, index == command.subCommands.lastIndex))
+            val lastFlags = anscestorsLast + listOf(isLast)
+            builder.append(buildTree(sub, index == command.subCommands.lastIndex, lastFlags))
         }
 
         return builder
