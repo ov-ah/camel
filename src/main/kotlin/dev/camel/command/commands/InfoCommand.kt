@@ -11,7 +11,7 @@ object InfoCommand : CamelSubCommand {
     override fun build(): LiteralArgumentBuilder<FabricClientCommandSource> {
         return literal("info")
             .executes {
-                ChatUtils.sendSuccess("Camel mod v0.1.0")
+                ChatUtils.sendInfo("Camel mod v0.1.0")
                 1
             }
     }

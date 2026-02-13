@@ -7,10 +7,10 @@ import net.minecraft.util.Formatting
 
 object ChatUtils {
 
-    private val PREFIX: MutableText
-        get() = Text.empty()
+    private fun getPrefix(symbol: String = "", symbolColor: Formatting = Formatting.GRAY): MutableText {
+        return Text.empty()
             .append(
-                Text.literal("\u2B50 ")
+                Text.literal("\uD83D\uDC2B ")
                     .formatted(Formatting.GOLD)
             )
             .append(
@@ -18,31 +18,34 @@ object ChatUtils {
                     .formatted(Formatting.YELLOW, Formatting.BOLD)
             )
             .append(
-                Text.literal(" \u00BB ")
-                    .formatted(Formatting.DARK_GRAY)
+                Text.literal(" $symbol \u00BB ")
+                    .formatted(symbolColor)
             )
+    }
 
     fun send(message: String) {
         send(Text.literal(message))
     }
 
     fun send(message: Text) {
-        val full = Text.empty()
-            .append(PREFIX)
-            .append(message)
-
-        MinecraftClient.getInstance().player?.sendMessage(full, false)
+        MinecraftClient.getInstance().player?.sendMessage(message, false)
     }
 
     fun sendSuccess(message: String) {
-        send(Text.literal(message).formatted(Formatting.GREEN))
+        val symbol = "\u2705"
+        val color  = Formatting.GREEN
+        send(Text.empty().append(getPrefix(symbol, color)).append(Text.literal(message).formatted(Formatting.GREEN)))
     }
 
     fun sendError(message: String) {
-        send(Text.literal(message).formatted(Formatting.RED))
+        val symbol = "\u274C"
+        val color  = Formatting.RED
+        send(Text.empty().append(getPrefix(symbol, color)).append(Text.literal(message).formatted(Formatting.RED)))
     }
 
     fun sendInfo(message: String) {
-        send(Text.literal(message).formatted(Formatting.GRAY))
+        val symbol = "\u2139"
+        val color  = Formatting.AQUA
+        send(Text.empty().append(getPrefix(symbol, color)).append(Text.literal(message).formatted(Formatting.GRAY)))
     }
 }
