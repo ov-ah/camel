@@ -2,13 +2,13 @@ package dev.camel.command.commands
 
 import com.mojang.brigadier.builder.LiteralArgumentBuilder
 import dev.camel.chat.ChatUtils
-import dev.camel.command.CamelCommand
+import dev.camel.command.CamelSubCommand
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource
 
-object InfoCommand {
+object InfoCommand : CamelSubCommand {
 
-    fun build() : LiteralArgumentBuilder<FabricClientCommandSource> {
+    override fun build(): LiteralArgumentBuilder<FabricClientCommandSource> {
         return literal("info")
             .executes {
                 ChatUtils.sendSuccess("Camel mod v0.1.0")
