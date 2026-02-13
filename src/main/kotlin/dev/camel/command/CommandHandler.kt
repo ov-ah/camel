@@ -2,6 +2,7 @@ package dev.camel.command
 
 import com.mojang.brigadier.CommandDispatcher
 import dev.camel.command.commands.PingCommand
+import dev.camel.command.commands.CamelRootCommand
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource
 
@@ -9,6 +10,7 @@ object CommandHandler {
 
     private val commands = listOf(
         PingCommand,
+        CamelRootCommand,
     )
 
     fun register() {
