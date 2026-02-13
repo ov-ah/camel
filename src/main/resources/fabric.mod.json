@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "camel",
+  "version": "${version}",
+  "name": "Camel",
+  "description": "A Hypixel Skyblock utility mod.",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/camel/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      {
+        "adapter": "kotlin",
+        "value": "dev.camel.Camel"
+      }
+    ]
+  },
+  "mixins": [],
+  "depends": {
+    "fabricloader": ">=0.17.2",
+    "fabric-api": "*",
+    "fabric-language-kotlin": ">=1.13.9+kotlin.2.3.10",
+    "minecraft": "~1.21.10",
+    "java": ">=21"
+  }
+}

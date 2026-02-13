@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:fabricmc.net)",
+      "WebFetch(domain:github.com)",
+      "Bash(git init:*)",
+      "Bash(git branch:*)",
+      "Bash(gradle wrapper:*)",
+      "WebFetch(domain:maven.fabricmc.net)",
+      "Bash(./gradlew build:*)",
+      "Bash(./gradlew wrapper:*)"
+    ]
+  }
+}
